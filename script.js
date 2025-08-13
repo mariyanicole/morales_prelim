@@ -6,16 +6,52 @@ const questions = [
         answer: "Paris"
     },
     {
+        category: "history",
+        question: "Which ancient civilization built the pyramids?",
+        options: ["Romans", "Greeks", "Egyptians", "Mayans"],
+        answer: "Egyptians"
+    },
+    {
+        category: "history",
+        question: "In which year did World War II end?",
+        options: ["1943", "1944", "1945", "1946"],
+        answer: "1945"
+    },
+    {
         category: "astronomy",
         question: "Which planet is known as the Red Planet?",
         options: ["Earth", "Mars", "Jupiter", "Venus"],
         answer: "Mars"
     },
     {
+        category: "astronomy",
+        question: "What is the largest planet in our solar system?",
+        options: ["Mars", "Saturn", "Jupiter", "Neptune"],
+        answer: "Jupiter"
+    },
+    {
+        category: "astronomy",
+        question: "What is the name of our galaxy?",
+        options: ["Andromeda", "Milky Way", "Triangulum", "Centaurus A"],
+        answer: "Milky Way"
+    },
+    {
         category: "biology",
         question: "What is the powerhouse of the cell?",
         options: ["Nucleus", "Ribosome", "Mitochondrion", "Chloroplast"],
         answer: "Mitochondrion"
+    },
+    {
+        category: "biology",
+        question: "What is the process by which plants make their food?",
+        options: ["Photosynthesis", "Respiration", "Digestion", "Fermentation"],
+        answer: "Photosynthesis"
+    },
+    {
+        category: "biology",
+        question: "Which blood type is known as the universal donor?",
+        options: ["Type A", "Type B", "Type AB", "Type O-"],
+        answer: "Type O-"
     }
 ];
 
@@ -62,12 +98,34 @@ function loadQuestion() {
 
 function checkAnswer(selectedOption) {
     const correctAnswer = questions[currentQuestionIndex].answer;
+    const options = document.querySelectorAll('.option-btn');
+    
+    options.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === correctAnswer) {
+            btn.classList.add('correct-answer');
+        }
+        if (btn.textContent === selectedOption && selectedOption !== correctAnswer) {
+            btn.classList.add('wrong-answer');
+        }
+    });
+
     if (selectedOption === correctAnswer) {
         score++;
+        scoreText.textContent = score;
+        // Add animation class
+        scoreText.classList.add('animate');
+        // Remove animation class after animation completes
+        setTimeout(() => {
+            scoreText.classList.remove('animate');
+        }, 500);
     }
-    currentQuestionIndex++;
-    scoreText.textContent = `Score: ${score}`;
-    loadQuestion();
+
+    // Wait 1.5 seconds before moving to next question
+    setTimeout(() => {
+        currentQuestionIndex++;
+        loadQuestion();
+    }, 1500);
 }
 
 function updateProgress() {
@@ -87,7 +145,9 @@ function setTheme(category) {
 
 darkModeBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
-    darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const modeText = darkModeBtn.querySelector('.mode-text');
+    modeText.textContent = isDarkMode ? 'Dark Mode' : 'Light Mode';
 });
 
 restartBtn.addEventListener('click', () => {

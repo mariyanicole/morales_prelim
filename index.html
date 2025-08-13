@@ -4,25 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Themed Quiz</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="dark-mode-toggle" class="dark-mode-btn">🌙 Dark Mode</button>
-    <div class="quiz-container">
-        <h1 id="quiz-title">Quiz Time</h1>
-        <div id="quiz-content">
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
+    <div class="app-container">
+        <button id="dark-mode-toggle" class="dark-mode-btn" aria-label="Toggle Dark Mode">
+            <span class="mode-icon">🌙</span>
+            <span class="mode-text">Switch to Dark Mode</span>
+        </button>
+        
+        <main class="quiz-container">
+            <div class="quiz-header">
+                <h1 id="quiz-title">Quiz Time</h1>
+                <div class="progress-container" aria-label="Quiz Progress">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
             </div>
-            <p id="question-text">Question goes here...</p>
-            <div id="options-container" class="options"></div>
-            <p id="score-text">Score: 0</p>
-        </div>
-        <div id="results-container" class="results" style="display: none;">
-            <h2>Quiz Complete!</h2>
-            <p id="final-score"></p>
-            <button id="restart-btn" class="btn">Restart Quiz</button>
-        </div>
+
+            <div id="quiz-content" class="quiz-content">
+                <p id="question-text" class="question-text">Question goes here...</p>
+                <div id="options-container" class="options-grid"></div>
+                
+                <div class="score-container">
+                    <div class="score-display" aria-label="Current Score">
+                        <div id="score-text" class="score-number">0</div>
+                        <div class="score-separator">/</div>
+                        <div id="total-questions" class="total-number">9</div>
+                    </div>
+                    <div class="score-label">Current Score</div>
+                </div>
+            </div>
+
+            <div id="results-container" class="results-container" style="display: none;">
+                <div class="results-content">
+                    <h2>Quiz Complete! 🎉</h2>
+                    <p id="final-score" class="final-score"></p>
+                    <button id="restart-btn" class="btn restart-btn">Try Again</button>
+                </div>
+            </div>
+        </main>
     </div>
     <audio id="click-sound" src="https://www.soundjay.com/buttons/button-29.mp3" preload="auto"></audio>
     <script src="script.js"></script>
